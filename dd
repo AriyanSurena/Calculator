@@ -1,0 +1,99 @@
+// {
+//                     selectedShape === 'Circle' && (
+//                         <div className="flex flex-col">
+//                             <span className="flex my-2 gap-4">
+//                                 <TitleChip text={"Radius"} classes="w-fit"/>
+//                                 <Input name="InputValue" id="inputValue" placeholder="Enter Radius (r)" value={radius} onChange={setRadius} />
+//                             </span>
+
+//                                 <TitleChip text={"Area"} />
+//                                 <Input name={selectedShape + '-Area'} id={selectedShape + '-Area'} disabled={true} placeholder={selectedShape + ' Area'} value={Math.PI * Math.pow((radius as number), 2)} />
+//                                 <TitleChip text={"Perimeter"} />
+//                                 <Input name={selectedShape + '-Perimeter'} id={selectedShape + '-Perimeter'} disabled={true} placeholder={selectedShape + ' Perimeter'} value={2 * Math.PI * (radius as number)} />
+//                             </div>
+//                     )
+//                 }
+//                 {
+//                     selectedShape === 'Circle' && !isNaN(radius as number) && (
+//                         <TextChip setMessage={setMessage}>
+//                             <div className="overflow-x-hidden">
+                                
+//                                 <span className="text-blue-500">{`${selectedShape} Area is equal to `}</span>
+//                                 <span className="text-blue-300">{` ${Math.PI * Math.pow((radius as number), 2)} `}</span>
+//                                 {' and '}
+//                                 <span className="text-green-500">{`${selectedShape} Perimeter is equal to `}</span>
+//                                 <span className="text-green-300">{`${2 * Math.PI * (radius as number)}`}</span>
+//                             </div>
+//                         </TextChip>
+//                     )
+//                 }
+                
+                
+//                 {/*  */}
+                
+//                 {
+//                     selectedShape === 'Rectangle' && (
+//                         <div className="flex flex-col">
+//                             <span className="flex my-2 gap-4">
+//                                 <TitleChip text={"Width"} classes="w-fit"/>
+//                                 <Input name="InputValue" id="rectangleWidth" placeholder="Enter Rectangle Width (w)" value={width} onChange={setWidth} />
+//                             </span>
+//                             <span className="flex my-2 gap-4">
+//                                 <TitleChip text={"Height"} classes="w-fit"/>
+//                                 <Input name="InputValue" id="rectangleHeight" placeholder="Enter Rectangle Height (h)" value={height} onChange={setHeight} />
+//                             </span>
+
+//                                 <TitleChip text={"Area"} />
+//                                 <Input name={selectedShape + '-Area'} id={selectedShape + '-Area'} disabled={true} placeholder={selectedShape + ' Area'} value={(width as number) * (height as number)} />
+//                                 <TitleChip text={"Perimeter"} />
+//                                 <Input name={selectedShape + '-Perimeter'} id={selectedShape + '-Perimeter'} disabled={true} placeholder={selectedShape + ' Perimeter'} value={2 * ((width as number) + (height as number))} />
+//                             </div>
+//                     )
+//                 }
+//                 {
+//                     selectedShape === 'Rectangle' && !isNaN(width as number) && !isNaN(height as number) && (
+//                         <TextChip setMessage={setMessage}>
+//                             <div className="overflow-x-hidden">
+                                
+//                                 <span className="text-blue-500">{`${selectedShape} Area is equal to `}</span>
+//                                 <span className="text-blue-300">{` ${(width as number) * (height as number)} `}</span>
+//                                 {' and '}
+//                                 <span className="text-green-500">{`${selectedShape} Perimeter is equal to `}</span>
+//                                 <span className="text-green-300">{`${2 * ((width as number) + (height as number))}`}</span>
+//                             </div>
+//                         </TextChip>
+//                     )
+//                 }
+
+
+//                 {/*  */}
+                
+//                 {
+//                     selectedShape === 'Square' && (
+//                         <div className="flex flex-col">
+//                             <span className="flex my-2 gap-4">
+//                                 <TitleChip text={"Side"} classes="w-fit"/>
+//                                 <Input name="InputValue" id="squareSide" placeholder="Enter Square Side (s)" value={side} onChange={setSide} />
+//                             </span>
+
+//                                 <TitleChip text={"Area"} />
+//                                 <Input name={selectedShape + '-Area'} id={selectedShape + '-Area'} disabled={true} placeholder={selectedShape + ' Area'} value={(side as number) * (side as number)} />
+//                                 <TitleChip text={"Perimeter"} />
+//                                 <Input name={selectedShape + '-Perimeter'} id={selectedShape + '-Perimeter'} disabled={true} placeholder={selectedShape + ' Perimeter'} value={4 * (side as number)} />
+//                             </div>
+//                     )
+//                 }
+//                 {
+//                     selectedShape === 'Rectangle' && !isNaN(width as number) && !isNaN(height as number) && (
+//                         <TextChip setMessage={setMessage}>
+//                             <div className="overflow-x-hidden">
+                                
+//                                 <span className="text-blue-500">{`${selectedShape} Area is equal to `}</span>
+//                                 <span className="text-blue-300">{` ${(width as number) * (height as number)} `}</span>
+//                                 {' and '}
+//                                 <span className="text-green-500">{`${selectedShape} Perimeter is equal to `}</span>
+//                                 <span className="text-green-300">{`${2 * ((width as number) + (height as number))}`}</span>
+//                             </div>
+//                         </TextChip>
+//                     )
+//                 }

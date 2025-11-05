@@ -1,0 +1,13 @@
+{
+    "shapes": [
+        "Circle",
+        "Rectangle",
+        "Square",
+        "Triangle",
+        "EquilateralTriangle",
+        "Trapezoid",
+        "Ellipse",
+        "RegularPolygon"
+    ]
+
+}

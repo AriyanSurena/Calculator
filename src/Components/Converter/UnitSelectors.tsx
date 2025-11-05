@@ -1,4 +1,4 @@
-import SelectMenu from "./SelectMenu";
+import Menu from "../Menu";
 
 interface UnitSelectorsProps {
     id: string,
@@ -17,10 +17,10 @@ interface UnitSelectorsProps {
     unit: string,
     setUnit: (unit: string) => void,
 }
-const UnitSelectors2: React.FC<UnitSelectorsProps> = ({ id, unitsCategory, selectedUnitType, unit , setUnit }) => {
+const UnitSelectors: React.FC<UnitSelectorsProps> = ({ id, unitsCategory, selectedUnitType, unit , setUnit }) => {
     return (
-        <SelectMenu id={id} list={unitsCategory[selectedUnitType]} value={unit} setValue={setUnit} />
+        <Menu id={id} list={unitsCategory[selectedUnitType]} selected={unit} setSelected={setUnit} />
     )
 }
 
-export default UnitSelectors2;
+export default UnitSelectors;

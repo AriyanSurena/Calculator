@@ -1,5 +1,4 @@
-import { type Dispatch, type SetStateAction } from "react";
-import Menu from "../Menu";
+import Select from "./Select";
 
 /**
  * Props for the UnitsMenu component.
@@ -8,7 +7,7 @@ import Menu from "../Menu";
  * (e.g., kg, L, pcs). It is a thin, semantic wrapper around the generic
  * `SelectMenu` component, giving the selection a clear domain-specific meaning.
  */
-interface UnitsMenuProps {
+interface MenuProps {
     /**
    * Unique identifier for the dropdown element.
    * Passed directly to `SelectMenu` and required for accessibility and testing.
@@ -21,18 +20,18 @@ interface UnitsMenuProps {
        * @example
        * ["kg", "g", "L", "mL", "pcs"]
        */
-    unitTypesList: string[],
-
+    list: string[],
+ 
     /**
-       * Setter function (from `useState`) that updates the selected unit in the parent.
-       */
-    setSelectedUnitType: Dispatch<SetStateAction<string>>
-
-    /**
-       * The currently selected unit value.
-       * This is the controlled `value` of the underlying `SelectMenu`.
-       */
-    selectedUnitType: string,
+     * The currently selected unit value.
+     * This is the controlled `value` of the underlying `SelectMenu`.
+    */
+   selected: string,
+   
+   /**
+      * Setter function (from `useState`) that updates the selected unit in the parent.
+      */
+   setSelected: (selected: string) => void
 }
 /**
  * UnitsMenu
@@ -41,7 +40,7 @@ interface UnitsMenuProps {
  * It re-uses the generic `SelectMenu` to avoid code duplication while keeping a clear,
  * domain-specific API for unit selection.
  *
- * @param props - Component props (see {@link UnitsMenuProps})
+ * @param props - Component props (see {@link MenuProps})
  * @returns A `SelectMenu` pre-configured with the provided unit list and state.
  *
  * @example
@@ -56,10 +55,15 @@ interface UnitsMenuProps {
  * />
  * ```
  */
-const UnitsMenu: React.FC<UnitsMenuProps> = ({ id, unitTypesList, setSelectedUnitType, selectedUnitType }) => {
+const Menu: React.FC<MenuProps> = ({ 
+    id, 
+    list, 
+    selected,
+    setSelected 
+ }) => {
     return (
-        <Menu id={id} list={unitTypesList} selected={selectedUnitType} setSelected={setSelectedUnitType} />
+        <Select id={id} list={list} selected={selected} setSelected={setSelected} />
     )
 }
 
-export default UnitsMenu;
+export default Menu;

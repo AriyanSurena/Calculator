@@ -70,6 +70,7 @@ const Converter: React.FC = () => {
     let formattedConvertFromValue = new Intl.NumberFormat().format(Number(convertFromValue));
     let formattedConvertToValue = new Intl.NumberFormat().format(Number(convertToValue));
 
+    
     return (
         <>
             <article className="flex flex-col gap-4 w-11/12 max-w-lg px-2 py-4 bg-gray-100 dark:bg-gray-700 text-black dark:text-white shadow-2xl ring-1 ring-gray-300 dark:ring-gray-800 rounded relative">
@@ -86,7 +87,7 @@ const Converter: React.FC = () => {
                                 <span className="text-blue-300">{` ${convertFromUnit} `}</span>
                                 {' is equal to '}
                                 <span className="text-green-500">{` ${formattedConvertToValue} `}</span>
-                                <span className="text-green-300">{` ${convertToUnit} `}</span>
+                                <span className="text-green-300">{` ${(Number(convertToUnit) < 0.001) ? Math.round(Math.max(Number(convertToUnit))) : convertToUnit} `}</span>
                             </div>
                         </TextChip>
                     )

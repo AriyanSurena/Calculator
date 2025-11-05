@@ -1,12 +1,13 @@
 import React, { type JSX } from 'react';
 interface SectionHeaderProps {
   text: string | JSX.Element;
+  classes?: string;
 }
 
-const TitleChip: React.FC<SectionHeaderProps> = ({ text }) => {
+const TitleChip: React.FC<SectionHeaderProps> = ({ text, classes }) => {
   return (
     <span
-      className="
+      className={`
         w-full
         text-center 
         p-2 
@@ -16,7 +17,7 @@ const TitleChip: React.FC<SectionHeaderProps> = ({ text }) => {
         text-black
         dark:text-white   
         select-none
-      "
+      ${classes}`}
     >
       {text}
     </span>
