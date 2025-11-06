@@ -1,10 +1,10 @@
-import { useEffect, useReducer, useState} from "react";
+import { useEffect, useReducer, useState, type ActionDispatch } from "react";
 import ShapesJSON from "../../assets/Shapes.json";
-import Input from "../Converter/Input";
 import Toast from "./../Converter/Toast";
 import Menu from "../Menu";
-import TitleChip from "../Converter/TitleChip";
 import TextChip from "../Converter/TextChlip";
+import ResultDisplay from "../ResultDisplay";
+import ShapeInput from "./ShapeInput";
 
 interface ShapesObj {
     shapes: string[];
@@ -13,15 +13,23 @@ interface ShapesObj {
 const ShapesCalculator: React.FC = () => {
     const ShapesCategory: ShapesObj = ShapesJSON;
     const shapes: string[] = ShapesCategory.shapes;
-
     const [selectedShape, setSelectedShape] = useState<string>(shapes[0]);
 
+    const initialState: stateType = {
+        shape: "Circle",
+        area: 0,
+        perimeter: 0,
+    }
     const [message, setMessage] = useState<string>('')
 
     interface stateType {
-        shape: 'Circle' | 'Rectangle' | 'Square',
+        shape: 'Circle' | 'Rectangle' | 'Square';
+        radius?: number,
         area: number,
-        perimeter: number
+        perimeter: number,
+        width?: number,
+        height?: number,
+        side?: number
     }
 
     interface actionType {
@@ -29,39 +37,45 @@ const ShapesCalculator: React.FC = () => {
         radius?: number,
         width?: number,
         height?: number,
-        side?: number,
+        side?: number
     }
 
-    const initialState: stateType = {
-        shape: "Circle",
-        area: 0,
-        perimeter: 0,
-    }
-
-    const isNumber = (num: number): boolean => {
-        if(typeof num === 'number') return true;
-        else return false;
-    }
     function reducer(prevState: stateType, action: actionType) {
-
-
         switch (action.shape) {
-            case 'Circle': return {
-                "shape": "Circle",
-                "radius": action.radius,
-                "area": Math.PI * Math.pow((action.radius as number), 2),
-                "perimeter": 2 * Math.PI * (action.radius as number)
+            case 'Circle': {
+                const radius = action.radius ?? prevState.radius ?? 0;
+                return {
+                    ...prevState,
+                    "shape": "Circle",
+                    radius,
+                    "area": Math.PI * Math.pow((action.radius as number), 2),
+                    "perimeter": 2 * Math.PI * (action.radius as number)
+                }
             }
-            case 'Rectangle': return {
-                "shape": "Rectangle",
-                "area": (action.width as number) * (action.height as number),
-                "perimeter": 2 * ((action.width as number) + (action.height as number))
+            case 'Rectangle': {
+                const width = action.width ?? prevState.width ?? 0;
+                const height = action.height ?? prevState.height ?? 0;
+                return {
+                    ...prevState,
+                    shape: "Rectangle",
+                    width,
+                    height,
+                    area: width * height,
+                    perimeter: 2 * (width + height)
+                };
             }
-            case 'Square': return {
-                "shape": "Square",
-                "area": Math.pow((action.side as number), 2),
-                "perimeter": 4 * (action.side as number)
+            case 'Square': {
+                const side = action.side ?? prevState.side ?? 0;
+                return {
+                    ...prevState,
+                    shape: "Square",
+                    side,
+                    area: side * side,
+                    perimeter: 4 * side
+                };
             }
+
+            default: return prevState;
         }
     }
 
@@ -71,93 +85,54 @@ const ShapesCalculator: React.FC = () => {
     )
 
     useEffect(() => {
-        switch (selectedShape) {
-            case "Circle": {
-                dispatch( {shape: "Circle"} )
-            } break;
-            case "Rectangle": {
-                dispatch( {shape: "Rectangle"} )
-            } break;
-            case "Square": {
-                dispatch( {shape: "Square"} )
-            } break;
-                
-            default: throw new Error("unknown Shape")
-                break;
-        }
+        dispatch({ shape: selectedShape as ('Circle' | 'Rectangle' | 'Square') })
     }, [selectedShape])
+
+
+    const Row: React.FC<{ label: string, placeholder: string, shape: ('Circle' | 'Rectangle' | 'Square'), param: string, onChange: ActionDispatch<[action: actionType]> }> = ({ label, placeholder, shape, param, onChange }) => {
+        return (
+            <span className="flex flex-col my-2 gap-2">
+                <ShapeInput placeholder={placeholder} label={label} shape={shape} param={param} onChange={onChange} />
+            </span>
+        )
+    }
 
     return (
         <>
             <article className="flex flex-col gap-4 w-11/12 max-w-lg px-2 py-4 bg-gray-100 dark:bg-gray-700 text-black dark:text-white shadow-2xl ring-1 ring-gray-300 dark:ring-gray-800 rounded relative">
                 <Menu id='category' list={shapes} setSelected={setSelectedShape} selected={selectedShape} />
                 {
-                    state.shape === 'Circle' && (
-                        <div className="flex flex-col">
-                            <span className="flex my-2 gap-4">
-                                <TitleChip text={"Radius"} classes="w-fit" />
-                                <input className="w-full bg-slate-100 dark:bg-slate-600 rounded shadow p-2 ring-1 ring-slate-200 dark:ring-slate-700" placeholder="Enter Radius (r)" onChange={(e) => {
-                                    dispatch({ shape: 'Circle', radius: Number(e.target.value) })
-                                }} />
-                            </span>
+                    <div className="flex flex-col">
+                        <span className="flex flex-col my-2 gap-2">
+                            {
+                                state.shape === 'Circle' &&
+                                (
+                                    <Row label="Radius" shape="Circle" param="radius" placeholder="Enter Radius (r)" onChange={dispatch} />
+                                )
+                            }
+                            {
+                                state.shape === 'Rectangle' && (
+                                    <>
+                                        <Row label="Width" shape="Rectangle" param="width" placeholder="Enter Rectangle Width (w)" onChange={dispatch} />
+                                        <Row label="Height" shape="Rectangle" param="height" placeholder="Enter Rectangle Height (h)" onChange={dispatch} />
+                                    </>
+                                )
+                            }
+                            {
+                                state.shape === 'Square' &&
+                                (
+                                    <Row label="Side" shape="Square" param="side" placeholder="Enter Square Side (s)" onChange={dispatch} />
+                                )
+                            }
+                        </span>
 
-                            <TitleChip text={"Area"} />
-                            <Input name={selectedShape + '-Area'} id={selectedShape + '-Area'} disabled={true} placeholder={selectedShape + ' Area'} value={state.area} />
-                            <TitleChip text={"Perimeter"} />
-                            <Input name={selectedShape + '-Perimeter'} id={selectedShape + '-Perimeter'} disabled={true} placeholder={selectedShape + ' Perimeter'} value={state.perimeter} />
-                        </div>
-                    )
+                        <ResultDisplay label={"Area"} id={state.shape + '-Area'} placeholder={state.shape + ' Area'} result={state.area} />
+                        <ResultDisplay label={"Perimeter"} id={state.shape + '-Perimeter'} placeholder={state.shape + ' Perimeter'} result={state.perimeter} />
+                    </div>
                 }
 
-
                 {
-                    state.shape === 'Rectangle' && (
-                        <div className="flex flex-col">
-                            <span className="flex my-2 gap-4">
-                                <TitleChip text={"Width"} classes="w-fit" />
-                                <input name="InputValue" id="rectangleWidth" placeholder="Enter Rectangle Width (w)" onChange={
-                                    e =>
-                                        dispatch({ shape: "Rectangle", width: Number(e.target.value) })
-                                } />
-                            </span>
-                            <span className="flex my-2 gap-4">
-                                <TitleChip text={"Height"} classes="w-fit" />
-                                <input name="InputValue" id="rectangleHeaight" placeholder="Enter Rectangle Height (h)" onChange={
-                                    e =>
-                                        dispatch({ shape: "Rectangle", height: Number(e.target.value) })
-                                } />
-                            </span>
-
-                            <TitleChip text={"Area"} />
-                            <Input name={state.shape + '-Area'} id={state.shape + '-Area'} disabled={true} placeholder={state.shape + ' Area'} value={state.area} />
-                            <TitleChip text={"Perimeter"} />
-                            <Input name={state.shape + '-Perimeter'} id={state.shape + '-Perimeter'} disabled={true} placeholder={state.shape + ' Perimeter'} value={state.perimeter} />
-                        </div>
-                    )
-                }
-
-                {/*  */}
-
-                {
-                    state.shape === 'Square' && (
-                        <div className="flex flex-col">
-                            <span className="flex my-2 gap-4">
-                                <TitleChip text={"Side"} classes="w-fit" />
-                                <input name="InputValue" id="squareSide" placeholder="Enter Square Side (s)"  onChange={
-                                    e => dispatch({ shape: "Square", side: Number(e.target.value) })
-                                } />
-                            </span>
-
-                            <TitleChip text={"Area"} />
-                            <Input name={state.shape + '-Area'} id={state.shape + '-Area'} disabled={true} placeholder={state.shape + ' Area'} value={state.area} />
-                            <TitleChip text={"Perimeter"} />
-                            <Input name={state.shape + '-Perimeter'} id={state.shape + '-Perimeter'} disabled={true} placeholder={state.shape + ' Perimeter'} value={state.perimeter} />
-                        </div>
-                    )
-                }
-            
-                {
-                    !isNaN(state.area) && !isNaN(state.perimeter) && (state.area !==0) && (state.perimeter !==0) &&(
+                    !isNaN(state.area) && !isNaN(state.perimeter) && (state.area !== 0) && (state.perimeter !== 0) && (
                         <TextChip setMessage={setMessage}>
                             <div className="overflow-x-hidden">
                                 <span className="text-blue-500">{`${state.shape} Area is equal to `}</span>

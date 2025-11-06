@@ -6,6 +6,7 @@ import Input from "../Converter/Input";
 import UnitSelectors from "../Converter/UnitSelectors";
 import TextChip from "../Converter/TextChlip";
 import Toast from "./Toast";
+import ResultDisplay from "../ResultDisplay";
 
 interface UnitsObj {
     Area: string[];
@@ -77,7 +78,7 @@ const Converter: React.FC = () => {
                 <UnitsMenu id='category' unitTypesList={unitTypesList} setSelectedUnitType={setSelectedUnitType} selectedUnitType={selectedUnitType} />
                 <Input name="InputValue" id="inputValue" placeholder="Enter" onChange={handleConverter} />
                 <UnitSelectors id={'convertFrom'} unitsCategory={unitsCategory} selectedUnitType={selectedUnitType} unit={convertFromUnit} setUnit={setConvertFromUnit} />
-                <Input name="Result" id="Result" disabled={true} placeholder="Result" value={convertToValue} />
+                <ResultDisplay id="converter" placeholder="Result" result={Number(convertToValue)} />
                 <UnitSelectors id={'convertTo'} unitsCategory={unitsCategory} selectedUnitType={selectedUnitType} unit={convertToUnit} setUnit={setConvertToUnit} />
                 {
                     !isNaN(convertFromValue as number) && !isNaN(convertToValue as number) && (
