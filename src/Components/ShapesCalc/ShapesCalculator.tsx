@@ -40,38 +40,37 @@ const ShapesCalculator: React.FC = () => {
         side?: number
     }
 
-    function reducer(prevState: stateType, action: actionType) {
+    function reducer(prevState: stateType, action: actionType): stateType {
         switch (action.shape) {
             case 'Circle': {
                 const radius = action.radius ?? prevState.radius ?? 0;
+                if (radius < 0) return prevState;
                 return {
-                    ...prevState,
-                    "shape": "Circle",
+                    shape: "Circle",
                     radius,
-                    "area": Math.PI * Math.pow((action.radius as number), 2),
-                    "perimeter": 2 * Math.PI * (action.radius as number)
+                    area: (radius) && Math.PI * Math.pow(radius, 2),
+                    perimeter: (radius) && (2 * Math.PI * radius)
                 }
             }
             case 'Rectangle': {
                 const width = action.width ?? prevState.width ?? 0;
                 const height = action.height ?? prevState.height ?? 0;
+                if (width < 0 || height < 0) return prevState;
                 return {
-                    ...prevState,
                     shape: "Rectangle",
                     width,
                     height,
-                    area: width * height,
-                    perimeter: 2 * (width + height)
+                    area: (width && height) && (width * height),
+                    perimeter: (width && height) && (2 * (width + height))
                 };
             }
             case 'Square': {
                 const side = action.side ?? prevState.side ?? 0;
                 return {
-                    ...prevState,
                     shape: "Square",
                     side,
-                    area: side * side,
-                    perimeter: 4 * side
+                    area: (side) && (side * side),
+                    perimeter: (side) && 4 * side
                 };
             }
 
@@ -85,7 +84,13 @@ const ShapesCalculator: React.FC = () => {
     )
 
     useEffect(() => {
-        dispatch({ shape: selectedShape as ('Circle' | 'Rectangle' | 'Square') })
+        dispatch({
+            shape: selectedShape as ('Circle' | 'Rectangle' | 'Square'),
+            radius: undefined,
+            width: undefined,
+            height: undefined,
+            side: undefined
+        })
     }, [selectedShape])
 
 
@@ -126,13 +131,13 @@ const ShapesCalculator: React.FC = () => {
                             }
                         </span>
 
-                        <ResultDisplay label={"Area"} id={state.shape + '-Area'} placeholder={state.shape + ' Area'} result={state.area} />
-                        <ResultDisplay label={"Perimeter"} id={state.shape + '-Perimeter'} placeholder={state.shape + ' Perimeter'} result={state.perimeter} />
+                        <ResultDisplay label={"Area"} placeholder={state.shape + ' Area'} result={state.area} />
+                        <ResultDisplay label={"Perimeter"} placeholder={state.shape + ' Perimeter'} result={state.perimeter} />
                     </div>
                 }
 
                 {
-                    !isNaN(state.area) && !isNaN(state.perimeter) && (state.area !== 0) && (state.perimeter !== 0) && (
+                    state.area > 0 && state.perimeter > 0 && (
                         <TextChip setMessage={setMessage}>
                             <div className="overflow-x-hidden">
                                 <span className="text-blue-500">{`${state.shape} Area is equal to `}</span>

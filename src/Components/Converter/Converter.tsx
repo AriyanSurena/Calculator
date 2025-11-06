@@ -78,7 +78,7 @@ const Converter: React.FC = () => {
                 <UnitsMenu id='category' unitTypesList={unitTypesList} setSelectedUnitType={setSelectedUnitType} selectedUnitType={selectedUnitType} />
                 <Input name="InputValue" id="inputValue" placeholder="Enter" onChange={handleConverter} />
                 <UnitSelectors id={'convertFrom'} unitsCategory={unitsCategory} selectedUnitType={selectedUnitType} unit={convertFromUnit} setUnit={setConvertFromUnit} />
-                <ResultDisplay id="converter" placeholder="Result" result={Number(convertToValue)} />
+                <ResultDisplay placeholder="Result" result={Number(convertToValue)} />
                 <UnitSelectors id={'convertTo'} unitsCategory={unitsCategory} selectedUnitType={selectedUnitType} unit={convertToUnit} setUnit={setConvertToUnit} />
                 {
                     !isNaN(convertFromValue as number) && !isNaN(convertToValue as number) && (
