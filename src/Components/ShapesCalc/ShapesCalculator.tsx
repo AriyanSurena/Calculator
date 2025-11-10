@@ -5,6 +5,7 @@ import Menu from "../Menu";
 import TextChip from "../Converter/TextChlip";
 import ResultDisplay from "../ResultDisplay";
 import ShapeInput from "./ShapeInput";
+import ShapeDisplay from "./ShapeDisplay";
 
 interface ShapesObj {
     shapes: string[];
@@ -130,9 +131,9 @@ const ShapesCalculator: React.FC = () => {
                                 )
                             }
                         </span>
-
                         <ResultDisplay label={"Area"} placeholder={state.shape + ' Area'} result={state.area} />
                         <ResultDisplay label={"Perimeter"} placeholder={state.shape + ' Perimeter'} result={state.perimeter} />
+                        <ShapeDisplay {...state} />
                     </div>
                 }
 
@@ -142,7 +143,7 @@ const ShapesCalculator: React.FC = () => {
                             <div className="overflow-x-hidden">
                                 <span className="text-blue-500">{`${state.shape} Area is equal to `}</span>
                                 <span className="text-blue-300">{` ${state.area} `}</span>
-                                {' and '}
+                                <div></div>
                                 <span className="text-green-500">{`${state.shape} Perimeter is equal to `}</span>
                                 <span className="text-green-300">{`${state.perimeter}`}</span>
                             </div>

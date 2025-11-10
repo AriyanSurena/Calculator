@@ -43,8 +43,8 @@ const ShapeInput: React.FC<ShapeInputProps> = ({
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
 
-        // محدودیت 30 کاراکتر
-        if (inputValue.length > 30) {
+        // محدودیت 20 کاراکتر
+        if (inputValue.length > 20) {
             return;
         }
 

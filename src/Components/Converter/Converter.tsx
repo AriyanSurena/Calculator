@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import UnitsJSON from "../../assets/Units.json";
-import UnitsMenu from "../Converter/UnitsMenu";
 import handleCalculate from "../../utils/Converter/handleCalculate";
 import Input from "../Converter/Input";
-import UnitSelectors from "../Converter/UnitSelectors";
 import TextChip from "../Converter/TextChlip";
 import Toast from "./Toast";
 import ResultDisplay from "../ResultDisplay";
+import Menu from "../Menu";
 
 interface UnitsObj {
     Area: string[];
@@ -28,7 +27,6 @@ const Converter: React.FC = () => {
 
     for (const unit in unitsCategory) {
         unitTypesList.push(unit);
-        console.log(unit, 'pushed in unitTypesList.')
     }
 
     const [selectedUnitType, setSelectedUnitType] = useState<string>(unitTypesList[0]);
@@ -75,11 +73,11 @@ const Converter: React.FC = () => {
     return (
         <>
             <article className="flex flex-col gap-4 w-11/12 max-w-lg px-2 py-4 bg-gray-100 dark:bg-gray-700 text-black dark:text-white shadow-2xl ring-1 ring-gray-300 dark:ring-gray-800 rounded relative">
-                <UnitsMenu id='category' unitTypesList={unitTypesList} setSelectedUnitType={setSelectedUnitType} selectedUnitType={selectedUnitType} />
+                <Menu id='category' list={unitTypesList} setSelected={setSelectedUnitType} selected={selectedUnitType} />
                 <Input name="InputValue" id="inputValue" placeholder="Enter" onChange={handleConverter} />
-                <UnitSelectors id={'convertFrom'} unitsCategory={unitsCategory} selectedUnitType={selectedUnitType} unit={convertFromUnit} setUnit={setConvertFromUnit} />
+                <Menu id={'convertFrom'} list={unitsCategory[selectedUnitType]} selected={convertFromUnit} setSelected={setConvertFromUnit} />
                 <ResultDisplay placeholder="Result" result={Number(convertToValue)} />
-                <UnitSelectors id={'convertTo'} unitsCategory={unitsCategory} selectedUnitType={selectedUnitType} unit={convertToUnit} setUnit={setConvertToUnit} />
+                <Menu id={'convertTo'} list={unitsCategory[selectedUnitType]} selected={convertToUnit} setSelected={setConvertToUnit} />
                 {
                     !isNaN(convertFromValue as number) && !isNaN(convertToValue as number) && (
                         <TextChip setMessage={setMessage}>

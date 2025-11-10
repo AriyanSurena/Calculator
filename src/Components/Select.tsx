@@ -1,4 +1,4 @@
-import { useId, useState, type Dispatch, type SetStateAction } from "react";
+import { useId, useState } from "react";
 
 interface SelectProps {
     id: string,
@@ -13,9 +13,8 @@ const Select: React.FC<SelectProps> = ({
     selected,
     setSelected
 }) => {
-    const [isOpened, setIsOpened]: [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
+    const [isOpened, setIsOpened] = useState<boolean>(false);
     const selectId: string = id || useId();
-
     return (
         <div
             id={selectId}
