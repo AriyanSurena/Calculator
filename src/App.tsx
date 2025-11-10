@@ -1,10 +1,28 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Converter from "./Components/Converter/Converter";
 import ShapesCalculator from "./Components/ShapesCalc/ShapesCalculator";
+import TextChip from "./Components/Converter/TextChlip";
 
 const App = (): React.ReactNode => {
   return (
     <section id="page" className="w-full min-h-max flex flex-col gap-4 items-center py-4 px-0 h-screen bg-white dark:bg-black">
+      <div className="
+        w-full
+        text-center 
+        p-2 
+        rounded
+        bg-white
+        dark:bg-slate-700 
+        text-black
+        dark:text-white   
+        hover:dark:bg-slate-800 
+        hover:opacity-80
+      ">
+        {'This project is under construction and is not yet complete. GitHub link: '}
+    <a href="https://github.com/AriyanSurena/Calculator.git" target="_blank" rel="noopener noreferrer" className="text-blue-400">
+    https://github.com/AriyanSurena/Calculator.git
+    </a>
+      </div>
       <BrowserRouter>
         <nav className="flex gap-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
           <Link
