@@ -29,7 +29,7 @@ const ShapesCalculator: React.FC = () => {
         area: number,
         perimeter: number,
         width?: number,
-        height?: number,
+        length?: number,
         side?: number
     }
 
@@ -37,7 +37,7 @@ const ShapesCalculator: React.FC = () => {
         shape: 'Circle' | 'Rectangle' | 'Square',
         radius?: number,
         width?: number,
-        height?: number,
+        length?: number,
         side?: number
     }
 
@@ -55,14 +55,14 @@ const ShapesCalculator: React.FC = () => {
             }
             case 'Rectangle': {
                 const width = action.width ?? prevState.width ?? 0;
-                const height = action.height ?? prevState.height ?? 0;
-                if (width < 0 || height < 0) return prevState;
+                const length = action.length ?? prevState.length ?? 0;
+                if (width < 0 || length < 0) return prevState;
                 return {
                     shape: "Rectangle",
                     width,
-                    height,
-                    area: (width && height) && (width * height),
-                    perimeter: (width && height) && (2 * (width + height))
+                    length,
+                    area: (width && length) && (width * length),
+                    perimeter: (width && length) && (2 * (width + length))
                 };
             }
             case 'Square': {
@@ -89,7 +89,7 @@ const ShapesCalculator: React.FC = () => {
             shape: selectedShape as ('Circle' | 'Rectangle' | 'Square'),
             radius: undefined,
             width: undefined,
-            height: undefined,
+            length: undefined,
             side: undefined
         })
     }, [selectedShape])
@@ -121,7 +121,7 @@ const ShapesCalculator: React.FC = () => {
                                     ? (
                                         <>
                                             <Row label="Width" shape="Rectangle" param="width" placeholder="Enter Rectangle Width (w)" onChange={dispatch} />
-                                            <Row label="Height" shape="Rectangle" param="height" placeholder="Enter Rectangle Height (h)" onChange={dispatch} />
+                                            <Row label="Lenght" shape="Rectangle" param="length" placeholder="Enter Rectangle length (h)" onChange={dispatch} />
                                         </>
                                     ) : null
                             }

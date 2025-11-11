@@ -5,7 +5,7 @@ interface actionType {
     shape: 'Circle' | 'Rectangle' | 'Square';
     radius?: number;
     width?: number;
-    height?: number;
+    length?: number;
     side?: number;
 }
 

@@ -14,7 +14,7 @@ const ResultDisplay: React.FC<ResultDisplayProps> = ({
     const handleCopy: (value: string | number) => void = (value) => {
         const stringValue = String(value).trim();
 
-        if (isNaN(Number(stringValue)) || !stringValue || stringValue === "0") {
+        if (!stringValue || stringValue === "0" || stringValue === "NaN") {
             return;
         }
 

@@ -5,7 +5,7 @@ interface stateType {
     area: number,
     perimeter: number,
     width?: number,
-    height?: number,
+    length?: number,
     side?: number
 }
 
@@ -19,7 +19,7 @@ const ShapeDisplay: React.FC<stateType> = (state) => {
                     <CircleIcon radius={Number(state.radius)} />
                 ) ||
                 state.shape === "Rectangle" && (
-                    <RectangleIcon width={Number(state.width)} height={Number(state.height)}/>
+                    <RectangleIcon width={Number(state.width)} length={Number(state.length)}/>
                 ) ||
                 state.shape === "Square" && (
                     <SquareIcon side={Number(state.side)}/>

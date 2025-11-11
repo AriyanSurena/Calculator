@@ -9,7 +9,10 @@ export function CircleIcon({ radius }: { radius: number }): React.ReactElement {
             {
                 localRadius
                 ? (
-                    <div className="overflow-x-hidden [overflow-wrap:anywhere] bg-slate-100 dark:bg-slate-700 hover:scale-[1.01] cursor-pointer rounded shadow p-2 my-2 ring-1 ring-slate-200 dark:ring-slate-700">
+                    <div className="overflow-x-hidden [overflow-wrap:anywhere] bg-slate-100 dark:bg-slate-700 cursor-pointer rounded shadow p-2 my-2 ring-1 ring-slate-200 dark:ring-slate-700">
+                        <span className="text-red-500">
+                            {"Radius: "}
+                        </span>
                         {formattedRadius}
                     </div>
                 ) : null
@@ -18,29 +21,35 @@ export function CircleIcon({ radius }: { radius: number }): React.ReactElement {
     )
 }
 
-export function RectangleIcon({ width, height }: { width: number, height: number }): React.ReactElement {
+export function RectangleIcon({ width, length }: { width: number, length: number }): React.ReactElement {
     const localWidth = width || 0;
-    const localHeight = height || 0;
+    const localLength = length || 0;
     const formattedWidth = width ? new Intl.NumberFormat().format(localWidth) : null;
-    const formattedHeight = height ? new Intl.NumberFormat().format(localHeight) : null;
+    const formattedLength = length ? new Intl.NumberFormat().format(localLength) : null;
     return (
         <div className="flex flex-col items-center">
             {
-                localHeight && localWidth
+                localLength && localWidth
                 ? (
-                    <div className="overflow-x-hidden [overflow-wrap:anywhere] w-fit bg-slate-100 dark:bg-slate-700 hover:scale-[1.01] cursor-pointer rounded shadow p-2 my-2 ring-1 ring-slate-200 dark:ring-slate-700">
-                        {(localHeight > localWidth) ? formattedHeight : formattedWidth}
+                    <div className="overflow-x-hidden [overflow-wrap:anywhere] bg-slate-100 dark:bg-slate-700 cursor-pointer rounded shadow p-2 my-2 ring-1 ring-slate-200 dark:ring-slate-700">
+                        <span className="text-green-500">
+                            {'Lenght: '}
+                        </span>
+                        {(localLength > localWidth) ? formattedLength : formattedWidth}
                     </div>
                 ) : null
             }
             <div className="flex justify-center gap-4 items-center">
                 <div className="block w-[7rem] h-[5rem] p-2 my-2 ml-2 mr-2 border-2  border-r-red-500 border-t-green-500 border-slate-900"></div>
                 {
-                    localHeight && localWidth
+                    localLength && localWidth
                     ? (
-                        <div className="overflow-x-hidden [overflow-wrap:anywhere] bg-slate-100 dark:bg-slate-700 hover:scale-[1.01] cursor-pointer rounded shadow p-2 my-2 ring-1 ring-slate-200 dark:ring-slate-700">
-                            {(localWidth < localHeight) ? formattedWidth : formattedHeight}
-                        </div>
+                    <div className="overflow-x-hidden [overflow-wrap:anywhere] bg-slate-100 dark:bg-slate-700 cursor-pointer rounded shadow p-2 my-2 ring-1 ring-slate-200 dark:ring-slate-700">
+                        <span className="text-red-500">
+                            {'Width: '}
+                        </span>
+                        {(localWidth < localLength) ? formattedWidth : formattedLength}
+                    </div>
                     ) : null
                 }
             </div>
