@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import UnitsJSON from "../../assets/Units.json";
 import handleCalculate from "../../utils/Converter/handleCalculate";
 import Input from "../Converter/Input";
-import TextChip from "../Converter/TextChlip";
+import TextChip from "../TextChlip";
 import Toast from "../Toast";
 import ResultDisplay from "../ResultDisplay";
 import Menu from "../Menu";

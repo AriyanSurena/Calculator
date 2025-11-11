@@ -1,7 +1,7 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Converter from "./Components/Converter/Converter";
 import ShapesCalculator from "./Components/ShapesCalc/ShapesCalculator";
-import TextChip from "./Components/Converter/TextChlip";
+import TextChip from "./Components/TextChlip";
 
 const App = (): React.ReactNode => {
   return (
