@@ -7,9 +7,9 @@ A comprehensive and modern calculator toolkit built with cutting-edge web techno
 ### ✅ Available Now
 - **Unit Converter** - Convert between various measurement units
 - **Area & Perimeter Calculator** - Calculate geometry measurements  
+- **BMI Calculator** - Body Mass Index calculator
 
 ### 🔜 Coming Soon
-- BMI Calculator - Body Mass Index calculator
 - Exchange Rate Calculator  
 - Volume Calculator
 - Interest Rate Calculator

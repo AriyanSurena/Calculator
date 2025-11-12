@@ -19,7 +19,6 @@ const BMICalculator: React.FC = () => {
         message: undefined
     }
 
-    // اول تایپ‌ها رو تعریف کن
     type StateType = {
         weight?: number;
         height?: number;
@@ -45,19 +44,15 @@ const BMICalculator: React.FC = () => {
                 const weight = Number(prevState.weight) || 0;
                 const height = Number(prevState.height) || 0;
 
-                // اگر داده کافی نیست، state رو تغییر نده
                 if (weight <= 0 || height <= 0) {
                     return prevState;
                 }
 
-                // تبدیل قد از سانتی‌متر به متر
                 const heightInMeters = height / 100;
 
-                // محاسبه BMI
                 const bmi = weight / (heightInMeters * heightInMeters);
                 const roundedBMI = Math.round(bmi * 10) / 10;
 
-                // تعیین دسته‌بندی
                 let category: string;
                 let message = "";
                 if (bmi < 18.5) {
@@ -75,14 +70,14 @@ const BMICalculator: React.FC = () => {
                 }
 
                 return {
-                    ...prevState,  // ✅ درست شد
+                    ...prevState,
                     bmi: roundedBMI,
                     category,
                     message
                 };
             }
             default:
-                return prevState;  // ✅ درست شد
+                return prevState;
         }
     };
 
