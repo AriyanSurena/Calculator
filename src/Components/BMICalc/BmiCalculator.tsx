@@ -69,6 +69,17 @@ const BMICalculator: React.FC = () => {
                     message = "You are obese. Please consult with a healthcare professional.";
                 }
 
+
+                // اعتبارسنجی بهتر
+                if (weight <= 0 || height <= 0 || height > 300 || weight >= 500) {
+                    return {
+                        ...prevState,
+                        bmi: undefined,
+                        category: undefined,
+                        message: "Please enter valid height and weight"
+                    };
+                }
+
                 return {
                     ...prevState,
                     bmi: roundedBMI,
@@ -88,10 +99,12 @@ const BMICalculator: React.FC = () => {
     }, [state.weight, state.height])
 
     const calculateWeightRange = (h: number | undefined) => {
-        const height: number = typeof h == 'undefined' ? 0 : h;
-        const heightInMeters = height / 100;
-        const min: number = 18.5 * heightInMeters * heightInMeters;
-        const max: number = 24.9 * heightInMeters * heightInMeters;
+        if (!h || h <= 0) return { min: "0", max: "0" };
+
+        const heightInMeters = h / 100;
+        const min = 18.5 * heightInMeters * heightInMeters;
+        const max = 24.9 * heightInMeters * heightInMeters;
+
         return {
             min: min.toFixed(1),
             max: max.toFixed(1)
@@ -102,8 +115,8 @@ const BMICalculator: React.FC = () => {
 
     return (
         <article className="flex flex-col gap-4 w-11/12 max-w-lg px-2 py-4 bg-gray-100 dark:bg-gray-700 text-black dark:text-white shadow-2xl ring-1 ring-gray-300 dark:ring-gray-800 rounded relative">
-            <InputBox htmlFor="height" id="height" name="height" placeholder="Enter Your Height: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'height', value: Number(v) })} labelText="Height" />
-            <InputBox htmlFor="weight" id="weight" name="weight" placeholder="Enter Your Weight: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'weight', value: Number(v) })} labelText="Weight" />
+            <InputBox htmlFor="height" id="height" name="height" placeholder="Enter Your Height in cm: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'height', value: Number(v) })} labelText="Height" />
+            <InputBox htmlFor="weight" id="weight" name="weight" placeholder="Enter Your Weight in kg: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'weight', value: Number(v) })} labelText="Weight" />
             <div>
                 {
                     state.bmi ? (
@@ -155,7 +168,13 @@ const BMICalculator: React.FC = () => {
                                 }
                             </TextChip>
                         </div>
-                    ) : null
+                    ) : (
+                        <TextChip>
+                            <div className="text-red-500 font-bold">
+                                {state.message}
+                            </div>
+                        </TextChip>
+                    )
                 }
             </div>
         </article>
