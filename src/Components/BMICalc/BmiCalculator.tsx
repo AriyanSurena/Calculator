@@ -10,11 +10,13 @@ const BMICalculator: React.FC = () => {
         weight: number | undefined,
         height: number | undefined,
         category?: string | undefined
+        message?: string | undefined
     } = {
         gender: undefined,
         weight: undefined,
         height: undefined,
-        category: undefined
+        category: undefined,
+        message: undefined
     }
 
     // اول تایپ‌ها رو تعریف کن
@@ -23,6 +25,7 @@ const BMICalculator: React.FC = () => {
         height?: number;
         bmi?: number;
         category?: string;
+        message?: string;
     };
 
     type ActionType =
@@ -56,15 +59,26 @@ const BMICalculator: React.FC = () => {
 
                 // تعیین دسته‌بندی
                 let category: string;
-                if (bmi < 18.5) category = "کم‌وزن";
-                else if (bmi < 25) category = "وزن طبیعی";
-                else if (bmi < 30) category = "اضافه وزن";
-                else category = "چاق";
+                let message = "";
+                if (bmi < 18.5) {
+                    category = "Underweight";
+                    message = "Your weight is underweight. Consider consulting a nutritionist.";
+                } else if (bmi < 25) {
+                    category = "Normal weight";
+                    message = "Congratulations! Your weight is normal.";
+                } else if (bmi < 30) {
+                    category = "Overweight";
+                    message = "You are overweight. Regular exercise is recommended.";
+                } else {
+                    category = "Obese";
+                    message = "You are obese. Please consult with a healthcare professional.";
+                }
 
                 return {
                     ...prevState,  // ✅ درست شد
                     bmi: roundedBMI,
-                    category
+                    category,
+                    message
                 };
             }
             default:
@@ -75,9 +89,22 @@ const BMICalculator: React.FC = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
-        dispatch({type:'CALCULATE_BMI'})
+        dispatch({ type: 'CALCULATE_BMI' })
     }, [state.weight, state.height])
-    
+
+    const calculateWeightRange = (h: number | undefined) => {
+        const height: number = typeof h == 'undefined' ? 0 : h;
+        const heightInMeters = height / 100;
+        const min: number = 18.5 * heightInMeters * heightInMeters;
+        const max: number = 24.9 * heightInMeters * heightInMeters;
+        return {
+            min: min.toFixed(1),
+            max: max.toFixed(1)
+        };
+    };
+
+    const weightRange = calculateWeightRange(state.height);
+
     return (
         <article className="flex flex-col gap-4 w-11/12 max-w-lg px-2 py-4 bg-gray-100 dark:bg-gray-700 text-black dark:text-white shadow-2xl ring-1 ring-gray-300 dark:ring-gray-800 rounded relative">
             <InputBox htmlFor="weight" id="weight" name="weight" placeholder="Enter Your Weight: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'weight', value: Number(v) })} labelText="Weight" />
@@ -85,12 +112,54 @@ const BMICalculator: React.FC = () => {
             <div>
                 {
                     state.bmi ? (
-                            <ResultDisplay label="BMI" result={state.bmi} placeholder="Result"/>
-                        ) : null
-                    }
+                        <ResultDisplay label="BMI" result={state.bmi} placeholder="Result" />
+                    ) : null
+                }
                 {
                     state.bmi ? (
-                        <TextChip>{state.category}</TextChip>
+                        <div>
+                            <TextChip isCopyOn={true}>
+                                <div className="p-2 my-2">
+                                    {state.category}
+                                </div>
+                                <div className="opacity-80">
+                                    {state.message}
+                                </div>
+                                {
+                                    state.category ? (
+                                        <div>
+                                            <div className="opacity-90">
+                                                {`The appropriate weight range for you with a height of `}
+                                                <span className="text-green-500">
+                                                    {`${state.height}`}
+                                                </span>
+                                                <span className="text-purple-400">
+                                                    {' cm '}
+                                                </span>
+                                                <span>
+                                                    {' is: '}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span className="text-blue-500">
+                                                    {`${weightRange.min}`}
+                                                </span>
+                                                <span className="text-purple-400">
+                                                    {' kg'}
+                                                </span>
+                                                {` To `}
+                                                <span className="text-red-500">
+                                                    {`${weightRange.max}`}
+                                                </span>
+                                                <span className="text-purple-400">
+                                                    {' kg '}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ) : null
+                                }
+                            </TextChip>
+                        </div>
                     ) : null
                 }
             </div>
@@ -101,36 +170,36 @@ const BMICalculator: React.FC = () => {
 export default BMICalculator;
 
 
-const InputBox: React.FC<{ 
-        htmlFor: string, 
-        labelText: string, 
-        id: string, 
-        name: string, 
-        placeholder: string, 
-        onClickFn?: () => void, 
-        onChangeFn?: (value: number) => void 
-    }> = ({
-        htmlFor,
-        labelText,
-        id,
-        name,
-        placeholder,
-        onClickFn,
-        onChangeFn,
+const InputBox: React.FC<{
+    htmlFor: string,
+    labelText: string,
+    id: string,
+    name: string,
+    placeholder: string,
+    onClickFn?: () => void,
+    onChangeFn?: (value: number) => void
+}> = ({
+    htmlFor,
+    labelText,
+    id,
+    name,
+    placeholder,
+    onClickFn,
+    onChangeFn,
 }) => {
-    const handleChange = (value: string) => {
-        if (onChangeFn) {
-            const numValue = Number(value);
-            onChangeFn(numValue);
-        }
-    };
-    return (
-        <label
-            htmlFor={htmlFor}
-            onClick={onClickFn}
-            className="flex flex-col gap-2 cursor-pointer">
-            <span>{labelText}</span>
-            <Input id={id} name={name} placeholder={placeholder} onChange={handleChange} />
-        </label>
-    )
-}
+        const handleChange = (value: string) => {
+            if (onChangeFn) {
+                const numValue = Number(value);
+                onChangeFn(numValue);
+            }
+        };
+        return (
+            <label
+                htmlFor={htmlFor}
+                onClick={onClickFn}
+                className="flex flex-col gap-2 cursor-pointer">
+                <span>{labelText}</span>
+                <Input id={id} name={name} placeholder={placeholder} onChange={handleChange} />
+            </label>
+        )
+    }

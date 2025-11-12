@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 interface SectionHeaderProps {
-  children: React.ReactNode;
+  children: React.ReactNode,
+  isCopyOn?: boolean,
   setMessage?: (value : string) => void
 }
 
-const TextChip: React.FC<SectionHeaderProps> = ({ setMessage, children }) => {
+const TextChip: React.FC<SectionHeaderProps> = ({ setMessage, isCopyOn, children }) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   useEffect(() => {
@@ -30,8 +31,7 @@ const TextChip: React.FC<SectionHeaderProps> = ({ setMessage, children }) => {
         dark:bg-slate-700 
         text-black
         dark:text-white
-        select-none
-        ${setMessage ? 'cursor-pointer hover:dark:bg-slate-800 hover:opacity-80' : null}
+        ${isCopyOn ? 'cursor-pointer hover:shadow-lg active:dark:bg-slate-800 hover:opacity-90' : 'select-none'}
       `}
         onClick={(e) => {
           navigator.clipboard.writeText(e.currentTarget.innerText)
