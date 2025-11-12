@@ -1,75 +1,44 @@
-# React + TypeScript + Vite
+# 🧮 Calculator Suite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive and modern calculator toolkit built with cutting-edge web technologies.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ✅ Available Now
+- **Unit Converter** - Convert between various measurement units
+- **Area & Perimeter Calculator** - Calculate geometry measurements  
 
-## React Compiler
+### 🔜 Coming Soon
+- BMI Calculator - Body Mass Index calculator
+- Exchange Rate Calculator  
+- Volume Calculator
+- Interest Rate Calculator
+- Mathematical Calculator - Basic to advanced math operations
+- Date Calculator
+- Forex Calculator
+- *And many more...*
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## 🛠️ Tech Stack
 
-Note: This will impact Vite dev & build performances.
+- **⚡ Vite** - Fast build tool and dev server
+- **⚛️ React 18** - Modern UI library
+- **📘 TypeScript** - Type-safe development
+- **🛣️ React Router** - Client-side routing
+- **🎨 Tailwind CSS** - Utility-first styling
 
-## Expanding the ESLint configuration
+## 🎯 Project Status
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+🚧 **Under Active Development** 
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This project is continuously evolving with new calculators and features being added regularly. Our goal is to create the most comprehensive calculator toolkit available.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 💡 Why This Project?
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **All-in-One Solution** - No need for multiple calculator apps
+- **Modern & Fast** - Built with latest web technologies  
+- **User-Friendly** - Intuitive interface and smooth UX
+- **Open Source** - Transparent and community-driven
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+*Stay tuned for more updates! The journey to becoming a complete calculator suite has just begun.*
