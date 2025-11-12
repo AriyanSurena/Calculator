@@ -21,20 +21,18 @@ const TextChip: React.FC<SectionHeaderProps> = ({ setMessage, children }) => {
   return (
     <>
       <div
-        className="
+        className={`
         w-full
         text-center 
-        p-2 
+        p-2
         rounded
         bg-white
         dark:bg-slate-700 
         text-black
-        dark:text-white   
+        dark:text-white
         select-none
-        cursor-pointer
-        hover:dark:bg-slate-800 
-        hover:opacity-80
-      "
+        ${setMessage ? 'cursor-pointer hover:dark:bg-slate-800 hover:opacity-80' : null}
+      `}
         onClick={(e) => {
           navigator.clipboard.writeText(e.currentTarget.innerText)
           setIsClicked(true);

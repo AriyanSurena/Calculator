@@ -2,6 +2,7 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Converter from "./Components/Converter/Converter";
 import ShapesCalculator from "./Components/ShapesCalc/ShapesCalculator";
 import TextChip from "./Components/TextChlip";
+import BMICalculator from "./Components/BMICalc/BmiCalculator";
 
 const App = (): React.ReactNode => {
   return (
@@ -22,11 +23,16 @@ const App = (): React.ReactNode => {
             to={'Shape_Calculator'}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
           >Shape Calculator</Link>
+          <Link
+            to={'BMI_Calculator'}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+          >BMI Calculator</Link>
         </nav>
 
         <Routes>
           <Route path="/Convertor" element={<Converter />} />
           <Route path="/Shape_Calculator" element={<ShapesCalculator />} />
+          <Route path="/BMI_Calculator" element={<BMICalculator />} />
           <Route path="*" element={<div>Page not found</div>} />
         </Routes>
       </BrowserRouter>
