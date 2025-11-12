@@ -118,64 +118,65 @@ const BMICalculator: React.FC = () => {
             <InputBox htmlFor="height" id="height" name="height" placeholder="Enter Your Height in cm: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'height', value: Number(v) })} labelText="Height" />
             <InputBox htmlFor="weight" id="weight" name="weight" placeholder="Enter Your Weight in kg: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'weight', value: Number(v) })} labelText="Weight" />
             <div>
-                {
-                    state.bmi ? (
-                        <ResultDisplay label="BMI" result={state.bmi} placeholder="Result" />
-                    ) : null
-                }
-                {
-                    state.bmi ? (
+                {state.bmi ?
+                    (state.weight && state.height) ? (
                         <div>
+                            <ResultDisplay
+                                label="BMI"
+                                result={state.bmi}
+                                placeholder="Result"
+                            />
                             <TextChip isCopyOn={true}>
                                 <div className="p-2 my-2">
                                     {state.category}
                                 </div>
+
                                 <div className="opacity-80">
                                     {state.message}
                                 </div>
-                                {
-                                    state.category ? (
-                                        <div>
-                                            <div className="opacity-90">
-                                                {`The appropriate weight range for you with a height of `}
-                                                <span className="text-green-500">
-                                                    {`${state.height}`}
-                                                </span>
-                                                <span className="text-purple-400">
-                                                    {' cm '}
-                                                </span>
-                                                <span>
-                                                    {' is: '}
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span className="text-blue-500">
-                                                    {`${weightRange.min}`}
-                                                </span>
-                                                <span className="text-purple-400">
-                                                    {' kg'}
-                                                </span>
-                                                {` To `}
-                                                <span className="text-red-500">
-                                                    {`${weightRange.max}`}
-                                                </span>
-                                                <span className="text-purple-400">
-                                                    {' kg '}
-                                                </span>
-                                            </div>
+
+                                {state.category && (
+                                    <div>
+                                        <div className="opacity-90">
+                                            {`The appropriate weight range for you with a height of `}
+                                            <span className="text-green-500">
+                                                {state.height}
+                                            </span>
+                                            <span className="text-purple-400">
+                                                {' cm '}
+                                            </span>
+                                            <span>
+                                                {' is: '}
+                                            </span>
                                         </div>
-                                    ) : null
-                                }
+
+                                        <div>
+                                            <span className="text-blue-500">
+                                                {weightRange.min}
+                                            </span>
+                                            <span className="text-purple-400">
+                                                {' kg'}
+                                            </span>
+                                            {` To `}
+                                            <span className="text-red-500">
+                                                {weightRange.max}
+                                            </span>
+                                            <span className="text-purple-400">
+                                                {' kg '}
+                                            </span>
+                                        </div>
+                                    </div>
+                                )}
                             </TextChip>
                         </div>
-                    ) : (
+                    ) : null
+                    : (
                         <TextChip>
                             <div className="text-red-500 font-bold">
                                 {state.message}
                             </div>
                         </TextChip>
-                    )
-                }
+                    )}
             </div>
         </article>
     )
