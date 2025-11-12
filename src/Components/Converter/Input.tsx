@@ -58,6 +58,7 @@ const Input: React.FC<InputProps> = ({
             onChange={handleChange}
             className={`w-full bg-slate-100 dark:bg-slate-600 rounded shadow p-2 ring-1 ring-slate-200 dark:ring-slate-700 ${classes}`}
             type="text"
+            inputMode="decimal"
         />
     )
 }
