@@ -102,8 +102,8 @@ const BMICalculator: React.FC = () => {
 
     return (
         <article className="flex flex-col gap-4 w-11/12 max-w-lg px-2 py-4 bg-gray-100 dark:bg-gray-700 text-black dark:text-white shadow-2xl ring-1 ring-gray-300 dark:ring-gray-800 rounded relative">
-            <InputBox htmlFor="weight" id="weight" name="weight" placeholder="Enter Your Weight: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'weight', value: Number(v) })} labelText="Weight" />
             <InputBox htmlFor="height" id="height" name="height" placeholder="Enter Your Height: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'height', value: Number(v) })} labelText="Height" />
+            <InputBox htmlFor="weight" id="weight" name="weight" placeholder="Enter Your Weight: " onChangeFn={(v) => dispatch({ type: "UPDATE", param: 'weight', value: Number(v) })} labelText="Weight" />
             <div>
                 {
                     state.bmi ? (
